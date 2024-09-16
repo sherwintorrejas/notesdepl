@@ -1,3 +1,6 @@
+<?php
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +23,7 @@
             <input type="text" id="username" name="username" placeholder="Username" >
             <input type="password" id="password" name="password" placeholder="Password" >
             <?php
-        session_start();
+       
         if(isset($_SESSION['error_message'])) {
             echo '<div style="color: red;">' . $_SESSION['error_message'] . '</div>';
             unset($_SESSION['error_message']);

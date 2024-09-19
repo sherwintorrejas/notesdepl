@@ -1,15 +1,19 @@
 <?php
-// Use environment variables for the database connection details
-define('DB_SERVER', getenv('DB_HOST'));        // Hostname of the database server
-define('DB_USERNAME', getenv('DB_USER'));      // Database username
-define('DB_PASSWORD', getenv('DB_PASS'));      // Database password
-define('DB_NAME', getenv('DB_NAME'));          // Database name
+// Fetch database configuration from environment variables
+$server = getenv('DB_HOST');          // Fetches DB_HOST from environment variables
+$dbname = getenv('DB_DATABASE');      // Fetches DB_DATABASE from environment variables
+$dbuser = getenv('DB_USERNAME');      // Fetches DB_USERNAME from environment variables
+$dbpass = getenv('DB_PASSWORD');      // Fetches DB_PASSWORD from environment variables
+$dbport = getenv('DB_PORT') ?: '3306'; // Fetches DB_PORT from environment variables or defaults to 3306
 
-// Connect to the database using the environment variables
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Create a new mysqli instance with the provided credentials
+$link = new mysqli($server, $dbuser, $dbpass, $dbname, $dbport);
 
 // Check the connection
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+if ($link->connect_error) {
+    die("Connection failed: " . $link->connect_error);
 }
+
+// Your code here
+
 ?>
